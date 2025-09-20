@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CellStart — Phone Repair & Trade-in</title>
+  <style>
+    :root {
+      --primary: #00d1b2;
+      --dark: #0d1117;
+      --light: #f5f7fa;
+      --muted: #8b949e;
+      --radius: 12px;
+      --max-width: 1100px;
+      --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font);
+      background: var(--dark);
+      color: var(--light);
+      line-height: 1.6;
+    }
+    a { text-decoration: none; color: inherit; }
+    .container { max-width: var(--max-width); margin: auto; padding: 2rem 1rem; }
+    header, footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+    header h1 { font-size: 1.4rem; color: var(--primary); }
+    nav { display: flex; gap: 1rem; }
+    nav a { font-size: 0.95rem; color: var(--muted); }
+    .btn {
+      background: var(--primary); border: none; padding: 0.6rem 1rem;
+      border-radius: var(--radius); color: var(--dark); font-weight: 600; cursor: pointer;
+    }
+
+    /* Hero */
+    .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; padding: 3rem 0; }
+    .hero h2 { font-size: 2rem; margin-bottom: 1rem; }
+    .hero p { color: var(--muted); margin-bottom: 1.5rem; }
+
+    /* Sections */
+    section { padding: 3rem 0; }
+    h3 { margin-bottom: 1rem; font-size: 1.5rem; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .card {
+      background: #161b22; padding: 1.5rem; border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .small { font-size: 0.9rem; color: var(--muted); }
+
+    /* Services */
+    .service { margin-bottom: 1rem; }
+    .service strong { display: block; }
+
+    /* Trade-in form */
+    form { display: flex; flex-direction: column; gap: 0.8rem; }
+    input, select {
+      padding: 0.6rem; border-radius: var(--radius); border: 1px solid #30363d;
+      background: #0d1117; color: var(--light);
+    }
+
+    /* Footer */
+    footer { font-size: 0.85rem; color: var(--muted); padding-top: 2rem; border-top: 1px solid #30363d; margin-top: 3rem; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero, .grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="container">
+    <h1>CellStart</h1>
+    <nav>
+<a href="#services">Services</a>
+    <a href="#trade">Trade-in</a>
+<a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<!-- Hero -->
+<section class="hero container">
+    <div>
+<h2>Fast, Reliable Phone Repairs</h2>
+<p>From cracked screens to battery issues — CellStart brings your device back to life with transparent pricing and a 1-year warranty.</p>
+<button class="btn" onclick="scrollToId('services')">View Services</button>
+    </div>
+    <div class="card">
+<h3>Special Offer 🎉</h3>
+<p>20% off your first repair • Free diagnostics in 15 minutes</p>
+    </div>
+</section>
+
+<!-- Services -->
+<section id="services" class="container">
+    <h3>Our Services</h3>
+    <div class="grid-2">
+<div class="card service">
+        <strong>Screen Replacement</strong>
+        <p class="small">High-quality displays replaced within 60 mins.</p>
+    </div>
+    <div class="card service">
+        <strong>Battery Replacement</strong>
+        <p class="small">Get back full-day power with OEM-grade batteries.</p>
+    </div>
+    <div class="card service">
+        <strong>Charging Port Repair</strong>
+        <p class="small">Fix loose or damaged ports quickly and reliably.</p>
+    </div>
+    <div class="card service">
+        <strong>Data Recovery</strong>
+        <p class="small">Recover important files securely and privately.</p>
+    </div>
+    </div>
+  </section>
+
+  <!-- Trade-in -->
+  <section id="trade" class="container">
+    <h3>Trade-in Your Device</h3>
+    <div class="card">
+      <form onsubmit="event.preventDefault(); quickQuote()">
+        <input id="model" type="text" placeholder="Device Model (e.g., iPhone 12)" required>
+        <select id="condition">
+          <option value="like-new">Like New</option>
+          <option value="good">Good</option>
+          <option value="fair">Fair</option>
+          <option value="poor">Poor</option>
+        </select>
+        <button class="btn" type="submit">Get Quote</button>
+      </form>
+      <div id="quote" class="small" style="margin-top:1rem;display:none"></div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="container">
+    <h3>Contact Us</h3>
+    <p class="small">📍 Zakir Nagar, New Delhi• 📞 +91 8601373114 • ✉ arbazali8601@gmail.com</p>
+  </section>
+
+  <footer class="container">
+    <p>© 2025 CellStart • All rights reserved</p>
+    <p>⚡ “Powered by care, crafted for your device.”</p>
+  </footer>
+
+  <script>
+    function quickQuote(){
+      const model = document.getElementById("model").value;
+      const condition = document.getElementById("condition").value;
+      let base = /iphone/i.test(model) ? 15000 : 8000;
+      let factor = { "like-new": 0.9, good: 0.7, fair: 0.4, poor: 0.2 }[condition];
+      let price = Math.round(base * factor);
+      document.getElementById("quote").innerText = `Estimated value: ₹${price.toLocaleString("en-IN")}`;
+      document.getElementById("quote").style.display = "block";
+    }
+    function scrollToId(id){ document.getElementById(id).scrollIntoView({behavior:"smooth"}); }
+  </script>
+</body>
+</html>
